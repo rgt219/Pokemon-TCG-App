@@ -1,0 +1,27 @@
+<div class="market-dashboard">
+  <h2>Live Market Analytics</h2>
+
+  @if (marketStats()) {
+    <!-- We add this new wrapper to act as the CSS Grid parent -->
+    <div class="dashboard-grid">
+
+      <div class="stat-card">
+        <h3>Cards Tracked</h3>
+        <p>{{ marketStats()?.totalTrackedCards }}</p>
+      </div>
+
+      <div class="stat-card">
+        <h3>Average Growth</h3>
+        <p>{{ marketStats()?.avgMarketGrowth }}</p>
+      </div>
+
+      <div class="stat-card trending">
+        <h3>Trending Now</h3>
+        <p>🔥 {{ marketStats()?.trendingCard }}</p>
+      </div>
+
+    </div>
+  } @else {
+    <p class="loading-text">Establishing secure connection to market-pricing-service...</p>
+  }
+</div>

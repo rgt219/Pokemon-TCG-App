@@ -1,0 +1,75 @@
+:host {
+  display: block; // Forces the unknown Angular tag to act like a solid <div>
+  background-color: #0f172a; // The exact dark slate color from your Home page
+  min-height: 100vh; // Forces the background to stretch to the bottom of the monitor
+}
+
+// 1. The Main Wrapper
+.market-dashboard {
+  padding: 2rem;
+  color: #e2e8f0; // Soft white for readability
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #334155; // A subtle divider line
+    padding-bottom: 0.5rem;
+  }
+}
+
+// 2. The CSS Grid Engine
+.dashboard-grid {
+  display: grid;
+  // This automatically creates responsive columns!
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+// 3. The Isolated Component Styles (Protected by View Encapsulation)
+.stat-card {
+  background-color: #1e293b; // Deep slate to match a dark theme
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); // A soft drop shadow for depth
+  border-top: 4px solid #38bdf8; // An energetic tech-blue accent line
+  transition: transform 0.2s ease-in-out; // Animation preparation
+
+  // Hover effect: lifts the card up slightly when the mouse is over it
+  &:hover {
+    transform: translateY(-5px);
+  }
+
+  h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 0.9rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  p {
+    margin: 0;
+    font-size: 1.75rem;
+    font-weight: bold;
+    color: #f8fafc;
+  }
+}
+
+// 4. A modifier class for the special trending card
+.stat-card.trending {
+  border-top-color: #fb923c; // An orange accent for fire/trending
+}
+
+// 5. Styling the loading state
+.loading-text {
+  font-style: italic;
+  color: #94a3b8;
+  animation: pulse 2s infinite; // A simple breathing animation while waiting
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}

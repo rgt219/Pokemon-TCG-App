@@ -1,0 +1,65 @@
+
+
+<!-- 2. The Hero Section -->
+<header class="hero-section">
+  <div class="hero-content">
+    <span class="hero-badge">🚀 The Ultimate TCG Ecosystem</span>
+    <h1>Master Your Deck. <br><span class="highlight">Dominate the Meta.</span></h1>
+    <p>
+      Welcome to TCG Nexus—your definitive hub for real-time card databases,
+      advanced deck-building analytics, and collection tracking. Built by players, for players.
+    </p>
+
+    <div class="hero-cta-group">
+      <button class="primary-btn">Explore Live Database</button>
+      <button class="secondary-btn">Build a Deck</button>
+    </div>
+  </div>
+</header>
+
+<!-- 3. NEW: The Features / Value Proposition Section -->
+<section id="features" class="features-section">
+  <div class="section-header">
+    <h2>Built for Competitive Players</h2>
+    <p>Everything you need to stay ahead of the meta, all in one lightning-fast workspace.</p>
+  </div>
+
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">⚡</div>
+      <h3>Real-Time Sync</h3>
+      <p>Instant access to card databases, updated the second official sets drop.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">📊</div>
+      <h3>Deck Analytics</h3>
+      <p>Calculate type distributions, curve efficiencies, and consistency metrics.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">🛡️</div>
+      <h3>Microservice Backed</h3>
+      <p>Powered by a robust Java Spring Boot and .NET architecture for zero downtime.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 4. Your Live Card Grid Section -->
+<main class="home-layout">
+  <h2>Featured Cards of the Day</h2>
+  <p>Pulled live from the official TCG database:</p>
+
+  <div class="card-grid">
+    <!-- Add parentheses to pokemonList() to read the signal -->
+    @for (pokemon of pokemonList(); track pokemon.id) {
+      <app-pokemon-card
+        [cardName]="pokemon.name"
+        [imageUrl]="pokemon.images.large"
+        [hp]="pokemon.hp">
+      </app-pokemon-card>
+    } @empty {
+      <p>Loading cards... Please try again in a moment.</p>
+    }
+  </div>
+</main>

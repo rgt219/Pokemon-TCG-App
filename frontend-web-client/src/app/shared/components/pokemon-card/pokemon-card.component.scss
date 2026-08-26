@@ -1,0 +1,34 @@
+.card-container {
+  background-color: #1e293b; /* A dark slate blue background */
+  border-radius: 12px; /* Rounds the harsh square corners of the box */
+  overflow: hidden; /* If the image's corners stick out past our rounded borders, chop them off */
+  width: 250px; /* Forces the card to be exactly 250 pixels wide */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5); /* Creates a shadow underneath to make it look 3D */
+  transition: transform 0.2s; /* Tells the browser: 'If this card moves, animate it smoothly over 0.2 seconds' */
+
+  /* The ampersand (&) combined with :hover targets the user's mouse */
+  &:hover {
+    transform: translateY(-8px); /* When hovered, lift the card up by moving it negative 8 pixels on the Y (vertical) axis */
+    cursor: pointer; /* Changes the mouse arrow into a clicking finger */
+  }
+}
+
+/* Target the image specifically inside our container */
+.card-container img {
+  width: 100%; /* Force the image to stretch across the full 250px width of the container */
+  height: auto; /* Keeps the image proportions from stretching or squishing */
+  display: block; /* Removes a weird default invisible space HTML puts under images */
+}
+
+.card-title-bar {
+  padding: 12px; /* Adds breathing room inside the title bar so the text doesn't touch the edges */
+  text-align: center; /* Centers the text horizontally */
+}
+
+.card-title-bar p {
+  margin: 0; /* Removes the default spacing HTML adds around paragraphs */
+  color: #f8fafc; /* A crisp, off-white text color */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* A clean, modern font */
+  font-weight: bold; /* Makes the text thicker */
+  font-size: 1.2rem; /* Makes the text 20% larger than the default size */
+}

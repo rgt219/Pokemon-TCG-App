@@ -1,0 +1,19 @@
+<nav class="navbar">
+  <div class="nav-brand" routerLink="">
+    <span class="logo-text">PokeTome</span>
+  </div>
+
+  <div class="nav-links">
+    <!-- Use routerLink instead of href for separate pages -->
+    <a routerLink="/" class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+    <a href="#features" class="nav-item">Features</a> <!-- This one is still a local scroll anchor on the home page! -->
+    <a routerLink="/market-pricing" class="nav-item" routerLinkActive="active">Market Pricing</a>
+  </div>
+
+  <div class="nav-actions">
+    <span class="credits-badge">Energy: {{ userCredits }}</span>
+    <button class="cta-nav-btn" (click)="toggleMenu()">
+      {{ isMenuOpen ? 'Menu Open' : 'Get Started' }}
+    </button>
+  </div>
+</nav>

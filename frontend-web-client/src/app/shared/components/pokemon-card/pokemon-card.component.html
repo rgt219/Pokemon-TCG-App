@@ -1,0 +1,10 @@
+<div class="card-container">
+  <img [src]="imageUrl" [alt]="cardName">
+
+  <div class="card-title-bar">
+    <p>{{ cardName }}</p>
+    @if (hp !== 'N/A') {
+      <p>{{    hp    }}</p>
+    }
+  </div>
+</div>
