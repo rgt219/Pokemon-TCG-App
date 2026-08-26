@@ -1,0 +1,25 @@
+# Java / Maven
+**/target/
+!.mvn/wrapper/maven-wrapper.jar
+*.class
+*.log
+
+# Spring Boot
+.mvn/timing.properties
+hs_err_pid*
+
+# Node / Angular
+**/node_modules/
+**/dist/
+.angular/
+
+# IDEs (IntelliJ / VS Code)
+.idea/
+*.iml
+.vscode/
+*.swp
+*.swo
+
+# OS Metadata
+.DS_Store
+Thumbs.db
