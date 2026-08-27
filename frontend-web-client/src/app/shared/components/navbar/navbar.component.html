@@ -8,12 +8,21 @@
     <a routerLink="/" class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
     <a href="#features" class="nav-item">Features</a> <!-- This one is still a local scroll anchor on the home page! -->
     <a routerLink="/market-pricing" class="nav-item" routerLinkActive="active">Market Pricing</a>
+    <a routerLink="/sets", class="nav-item" routerLinkActive="active">Set Explorer</a>
   </div>
 
   <div class="nav-actions">
     <span class="credits-badge">Energy: {{ userCredits }}</span>
-    <button class="cta-nav-btn" (click)="toggleMenu()">
-      {{ isMenuOpen ? 'Menu Open' : 'Get Started' }}
-    </button>
+    @if (!isLoggedIn) {
+      <!-- Show this if they DO NOT have a token -->
+      <button class="cta-nav-btn" routerLink="/auth" routerLinkActive="active">
+        Login / Register
+      </button>
+    } @else {
+      <!-- Show this if they DO have a token -->
+      <button class="cta-nav-btn" style="background: #4b5563;" (click)="logout()">
+        Logout
+      </button>
+    }
   </div>
 </nav>

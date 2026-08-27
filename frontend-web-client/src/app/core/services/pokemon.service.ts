@@ -1,17 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { PokemonApiResponse } from '../../shared/models/pokemon.model';
+import { PokemonCard } from '../../shared/models/catalog.model';
 
-@Injectable({         // This sticky note tells Angular, "This file is a tool that can be injected (handed out) to any page that asks for it."
-  providedIn: 'root'  // This means the tool is available globally across the entire app.
+@Injectable({
+  providedIn: 'root'
 })
 export class PokemonService {
-  private readonly apiUrl = 'https://api.pokemontcg.io/v2/cards?pageSize=10';
+  // Pointing directly to your API Gateway routing to card-catalog-service
+  private readonly apiUrl = 'http://localhost:8080/api/catalog';
 
-  constructor(private readonly http: HttpClient) {} //A constructor is the setup routine that runs the millisecond this service is born.
+  constructor(private readonly http: HttpClient) {}
 
-  getFeaturedCards(): Observable<PokemonApiResponse> {     // An Observable is like a digital subscription box. It says, "I don't have the cards right now, but here is a tracking number. I promise to deliver the data whenever it finally arrives."
-    return this.http.get<PokemonApiResponse>(this.apiUrl);
+  // Fetch featured or catalog cards from your local backend
+  getFeaturedCards(): Observable<PokemonCard[]> {
+    // For now, you can point this to a set endpoint or a general card endpoint
+    return this.http.get<PokemonCard[]>(`${this.apiUrl}/sets/me5/cards`);
   }
 }

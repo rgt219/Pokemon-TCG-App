@@ -1,0 +1,106 @@
+:host {
+  display: block;
+  background-color: #07090e;
+  min-height: 100vh;
+  color: #f8f9fa;
+  font-family: system-ui, -apple-system, sans-serif;
+  padding: 3rem 2rem;
+}
+
+.explorer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+
+  .explorer-header {
+    margin-bottom: 2.5rem;
+    border-bottom: 1px solid #1e2638;
+    padding-bottom: 1rem;
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin: 0 0 0.5rem 0;
+      letter-spacing: -0.02em;
+    }
+
+    p {
+      color: #8d99ae;
+      font-size: 1rem;
+      margin: 0;
+    }
+  }
+
+  .sets-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+
+    .set-card {
+      background: #090c14;
+      border: 1px solid #1e2638;
+      border-radius: 16px;
+      padding: 1.5rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      &:hover {
+        transform: translateY(-4px);
+        border-color: #4cc9f0;
+        box-shadow: 0 10px 30px rgba(76, 201, 240, 0.1);
+      }
+
+      .set-logo-wrapper {
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.25rem;
+
+        .set-logo {
+          max-height: 100%;
+          max-width: 100%;
+          object-fit: contain;
+        }
+      }
+
+      .set-meta {
+        h3 {
+          margin: 0 0 0.25rem 0;
+          font-size: 1.15rem;
+          font-weight: 700;
+          color: #fff;
+        }
+
+        .set-id {
+          font-size: 0.75rem;
+          color: #4cc9f0;
+          text-transform: uppercase;
+          letter-spacing: 0.08em;
+          margin: 0 0 1rem 0;
+          font-family: monospace;
+        }
+
+        .set-stats {
+          display: flex;
+          justify-content: space-between;
+          font-size: 0.8rem;
+          color: #8d99ae;
+          border-top: 1px solid #1e2638;
+          padding-top: 0.75rem;
+        }
+      }
+    }
+  }
+
+  .loading-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 4rem;
+    color: #8d99ae;
+    font-style: italic;
+    font-family: monospace;
+  }
+}

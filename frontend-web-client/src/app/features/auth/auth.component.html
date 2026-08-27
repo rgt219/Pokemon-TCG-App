@@ -1,0 +1,33 @@
+<div class="auth-card">
+  <h2>{{ isLoginMode ? 'Login to PokeTome' : 'Create an Account' }}</h2>
+
+  <div class="form-group">
+    <!-- Added label and linked it to the input via id="username" -->
+    <label for="username">Username</label>
+    <input id="username" [(ngModel)]="username" placeholder="Enter your username" type="text" />
+  </div>
+
+  @if (!isLoginMode) {
+    <div class="form-group">
+      <label for="email">Email Address</label>
+      <input id="email" [(ngModel)]="email" placeholder="name@example.com" type="email" />
+    </div>
+  }
+
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input id="password" [(ngModel)]="password" placeholder="Enter your password" type="password" />
+  </div>
+
+  <button (click)="onSubmit()">
+    {{ isLoginMode ? 'Login' : 'Register' }}
+  </button>
+
+  <p class="toggle-text" (click)="isLoginMode = !isLoginMode">
+    {{ isLoginMode ? 'Need an account? Register here.' : 'Already have an account? Login here.' }}
+  </p>
+
+  @if (message) {
+    <p class="status-message">{{ message }}</p>
+  }
+</div>

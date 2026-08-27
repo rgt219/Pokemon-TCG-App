@@ -1,0 +1,28 @@
+<div class="set-detail-container">
+  <div class="set-detail-header">
+    <button class="back-btn" routerLink="/sets">← Back to Sets</button>
+    <h1>Set Database Archive</h1>
+    <p>Select any card below to launch its interactive Pokédex telemetry terminal.</p>
+  </div>
+
+  <div class="cards-grid">
+    @for (card of cards(); track card.cardId) {
+      <div class="card-grid-item" (click)="onSelectCard(card.cardId)">
+        <div class="card-art-frame">
+          <img [src]="card.images?.[0]?.large" [alt]="card.name" class="grid-card-img" />
+        </div>
+        <div class="grid-card-meta">
+          <h3>{{ card.name }}</h3>
+          <div class="grid-badges">
+            <span class="badge hp" *ngIf="card.hp">HP {{ card.hp }}</span>
+            <span class="badge rarity">{{ card.rarity }}</span>
+          </div>
+        </div>
+      </div>
+    } @empty {
+      <div class="loading-state">
+        <p>Loading card manifest from catalog microservice...</p>
+      </div>
+    }
+  </div>
+</div>

@@ -1,27 +1,34 @@
 <div class="market-dashboard">
-  <h2>Live Market Analytics</h2>
+  <h2>Market Overview</h2>
 
-  @if (marketStats()) {
-    <!-- We add this new wrapper to act as the CSS Grid parent -->
-    <div class="dashboard-grid">
+  <!-- Display Stats if loaded -->
+  @if (marketStats(); as stats) {
+    <p>Tracked Cards: {{ stats.totalTrackedCards }}</p>
+  }
 
-      <div class="stat-card">
-        <h3>Cards Tracked</h3>
-        <p>{{ marketStats()?.totalTrackedCards }}</p>
-      </div>
+  <hr />
 
-      <div class="stat-card">
-        <h3>Average Growth</h3>
-        <p>{{ marketStats()?.avgMarketGrowth }}</p>
-      </div>
+  <h2>Card Telemetry Inspection</h2>
 
-      <div class="stat-card trending">
-        <h3>Trending Now</h3>
-        <p>🔥 {{ marketStats()?.trendingCard }}</p>
-      </div>
+  <!-- Display Card Pricing if loaded -->
+  @if (cardPricing(); as card) {
+    <div class="card-pricing-card">
+      <h3>{{ card.cardName }} ({{ card.cardNumber }})</h3>
+      <p>Set: {{ card.setName }} | Rarity: {{ card.rarity }}</p>
 
+      <h4>Variants & Condition Spreads:</h4>
+      @for (variant of card.variants; track variant.name) {
+        <div class="variant-box">
+          <strong>Variant: {{ variant.name }}</strong>
+          @for (price of variant.prices; track price.condition) {
+            <p>Condition: {{ price.condition }} | Market Price: ${{ price.market }}</p>
+          }
+        </div>
+      }
     </div>
+  } @else if (errorMessage()) {
+    <p class="error">{{ errorMessage() }}</p>
   } @else {
-    <p class="loading-text">Establishing secure connection to market-pricing-service...</p>
+    <p>Loading card pricing telemetry...</p>
   }
 </div>

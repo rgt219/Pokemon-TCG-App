@@ -1,0 +1,117 @@
+/* 1. Host controls the layout of the entire component page */
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Subtracting an estimated 80px to account for your navbar height */
+  min-height: calc(100vh - 80px);
+  padding: 2rem;
+  background-color: #f8f9fa; /* Clean, neutral background */
+}
+
+/* 2. The Main Authentication Card */
+.auth-card {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 420px;
+
+  /* A subtle border to define the edge */
+  border: 1px solid rgba(0, 0, 0, 0.05);
+
+  h2 {
+  font-family: 'Cinzel', serif;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #333333;
+  font-weight: 700;
+  font-size: 2rem;
+}
+}
+
+/* 3. Form Inputs & Labels */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+
+  label {
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #555555;
+  }
+
+  input {
+    padding: 0.8rem 1rem;
+    font-size: 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    transition: all 0.2s ease;
+
+    &:focus {
+      outline: none;
+      /* A sleek blue focus ring */
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+      background-color: #ffffff;
+    }
+  }
+}
+
+/* 4. The Action Button (with a nod to Pokeball Red) */
+button {
+  font-family: 'Righteous', sans-serif;
+  letter-spacing: 1px; /* Looks great with this font */
+  width: 100%;
+  padding: 1rem;
+  margin-top: 1rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: white;
+  /* A linear gradient to give it a slightly premium feel */
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(220, 38, 38, 0.3);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+/* 5. The Login/Register Toggle Text */
+.toggle-text {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  color: #6b7280;
+  cursor: pointer;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: #3b82f6;
+    text-decoration: underline;
+  }
+}
+
+/* 6. Server Response Messages */
+.status-message {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-weight: 600;
+  padding: 0.75rem;
+  border-radius: 6px;
+  background-color: #f3f4f6;
+  color: #374151;
+  border-left: 4px solid #ef4444;
+}

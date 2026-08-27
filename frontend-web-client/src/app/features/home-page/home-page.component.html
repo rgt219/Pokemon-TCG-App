@@ -52,10 +52,10 @@
 
   <div class="card-grid">
     <!-- Add parentheses to pokemonList() to read the signal -->
-    @for (pokemon of pokemonList(); track pokemon.id) {
+    @for (pokemon of pokemonList(); track pokemon.cardId) {
       <app-pokemon-card
         [cardName]="pokemon.name"
-        [imageUrl]="pokemon.images.large"
+        [imageUrl]="pokemon.images?.[0]?.large ?? ''"
         [hp]="pokemon.hp">
       </app-pokemon-card>
     } @empty {

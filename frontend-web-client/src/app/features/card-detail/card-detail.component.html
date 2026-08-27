@@ -1,0 +1,218 @@
+@if (cardMetadata(); as card) {
+  <div class="pokedex-stage">
+
+    <!-- Authentic Larger Pokédex Device Shell -->
+    <div class="pokedex-device" [class.open]="isOpen()">
+
+      <!-- LEFT PANEL (Main Screen, Card Art, Name, Typing, Rarity) -->
+      <div class="dex-panel left-panel">
+        <div class="lens-hinge-section">
+          <div class="big-blue-lens">
+            <div class="lens-reflection"></div>
+          </div>
+          <div class="indicator-lights">
+            <span class="light red-light"></span>
+            <span class="light yellow-light"></span>
+            <span class="light green-light"></span>
+          </div>
+        </div>
+
+        <!-- Main Screen Viewer (Card Art) -->
+        <div class="screen-housing">
+          <div class="screen-bezel">
+            <div class="screen-display">
+              <img [src]="card.images?.[0]?.large" [alt]="card.name" class="pokedex-card-art" />
+            </div>
+            <div class="screen-speaker">
+              <span></span><span></span><span></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card Identity Display Underneath Picture -->
+        <div class="pokedex-id-banner">
+          <h1>{{ card.name }}</h1>
+          <div class="id-banner-meta">
+            <span class="badge hp">HP {{ card.hp ?? '??' }}</span>
+            <span class="badge type" *ngIf="card.types?.length">Type: {{ card.types.join(', ') }}</span>
+            <span class="badge rarity">{{ card.rarity }}</span>
+          </div>
+        </div>
+
+        <!-- Lower Controls -->
+        <div class="controls-housing">
+          <div class="power-button"></div>
+          <div class="control-row">
+            <div class="pill-buttons">
+              <span></span><span></span>
+            </div>
+            <div class="d-pad">
+              <div class="pad-vertical"></div>
+              <div class="pad-horizontal"></div>
+              <div class="pad-center"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CENTER SPINE HINGE -->
+      <div class="dex-spine"></div>
+
+      <!-- RIGHT PANEL (All Data: Interactive Chart, Telemetry, Attacks, Flavor Bio, Meta Matrix) -->
+      <div class="dex-panel right-panel">
+
+        <div class="dex-right-screen-content">
+
+          <!-- Flavor Bio Header -->
+          <div class="bio-screen" *ngIf="card.flavorText">
+            <p>"{{ card.flavorText }}"</p>
+          </div>
+
+          <!-- Interactive Market Price Activity Chart & Telemetry -->
+          <div class="market-telemetry-box" *ngIf="cardPricing(); as pricing">
+            <div class="telemetry-header">
+              <span>Market Price Activity</span>
+              <span class="status-live">Live Sync</span>
+            </div>
+
+            <!-- Interactive SVG Line Chart with Hover Tooltip -->
+            <!-- Interactive Market Price Activity Chart & Telemetry -->
+          <div class="market-telemetry-box" *ngIf="cardPricing()">
+            <div class="telemetry-header">
+              <span>Market Price Activity</span>
+              <span class="status-live">Live Sync</span>
+            </div>
+
+            <!-- Interactive SVG Line Chart with Hover Tooltip -->
+            @if (cardPricing()?.variants?.length) {
+              <div class="price-chart-container"
+                   (mousemove)="onChartMouseMove($event, cardPricing()!.variants[0].name)"
+                   (mouseleave)="onChartMouseLeave()">
+
+                <div class="chart-tooltip-hud" *ngIf="hoveredPrice() as tip">
+                  <span class="tip-date">{{ tip.date }}</span>
+                  <span class="tip-val">{{ tip.label }}: ${{ tip.price.toFixed(2) }}</span>
+                </div>
+
+                <svg class="activity-svg" viewBox="0 0 350 100" preserveAspectRatio="none">
+                  <defs>
+                    <linearGradient id="chartGlow" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#4cc9f0" stop-opacity="0.4"/>
+                      <stop offset="100%" stop-color="#4cc9f0" stop-opacity="0.0"/>
+                    </linearGradient>
+                  </defs>
+                  <polygon points="0,75 60,60 120,50 180,65 240,40 300,45 350,30 350,100 0,100" fill="url(#chartGlow)" />
+                  <path d="M 0 75 Q 60 60, 120 50 T 240 40 T 350 30" fill="none" stroke="#4cc9f0" stroke-width="3" stroke-linecap="round"/>
+                </svg>
+                <div class="chart-axis-labels">
+                  <span>Aug 13</span>
+                  <span>Aug 17</span>
+                  <span>Aug 22</span>
+                  <span>Aug 27</span>
+                </div>
+              </div>
+            }
+
+            @if (isLoadingPricing()) {
+              <p class="telemetry-loading">Querying DynamoDB nodes...</p>
+            } @else if (cardPricing()?.variants?.length && cardPricing()!.variants[0].prices?.length) {
+              <div class="telemetry-stats">
+                @for (priceRecord of cardPricing()!.variants[0].prices; track priceRecord.condition) {
+                  <div class="stat-pill">
+                    <span class="cond">{{ priceRecord.condition }}</span>
+                    <span class="price">${{ priceRecord.market ?? '0.00' }}</span>
+                    <span class="loss" *ngIf="priceRecord.trends?.days7">
+                      7d: {{ priceRecord.trends.days7.percentChange >= 0 ? '+' : '' }}{{ priceRecord.trends.days7.percentChange }}%
+                    </span>
+                  </div>
+                }
+              </div>
+            }
+          </div>
+          </div>
+
+          <!-- Complete Data Matrix (Attacks, Weakness, Resistance, Retreat, Artist, Language) -->
+          <div class="scrydex-details-matrix">
+            <h3>Pokédex Encyclopedia Data</h3>
+
+            <!-- Attacks Section -->
+            <div class="matrix-section" *ngIf="card.attacks?.length">
+              <h4 class="section-subhead">Combat Attacks</h4>
+              @for (attack of card.attacks; track attack.name) {
+                <div class="matrix-attack-row">
+                  <div class="attack-cost-symbols">
+                    @for (costType of attack.cost; track $index) {
+                      <span class="energy-badge" [ngClass]="costType.toLowerCase()">{{ costType.substring(0,1) }}</span>
+                    }
+                  </div>
+                  <div class="attack-info-block">
+                    <div class="atk-top">
+                      <span class="atk-name">{{ attack.name }}</span>
+                      <span class="atk-dmg" *ngIf="attack.damage">{{ attack.damage }} DMG</span>
+                    </div>
+                    <p class="atk-desc" *ngIf="attack.text">{{ attack.text }}</p>
+                  </div>
+                </div>
+              }
+            </div>
+
+            <!-- Meta Attributes Grid -->
+            <div class="matrix-meta-grid">
+              <div class="meta-cell">
+                <span class="cell-label">Weakness</span>
+                <span class="cell-value">
+                  @if (card.weaknesses?.length) {
+                    🔥 {{ card.weaknesses[0].value }}
+                  } @else {
+                    -
+                  }
+                </span>
+              </div>
+
+              <div class="meta-cell">
+                <span class="cell-label">Resistance</span>
+                <span class="cell-value">
+                  @if (card.resistances?.length) {
+                    {{ card.resistances[0].type }} ({{ card.resistances[0].value }})
+                  } @else {
+                    -
+                  }
+                </span>
+              </div>
+
+              <div class="meta-cell">
+                <span class="cell-label">Retreat Cost</span>
+                <span class="cell-value">
+                  @if (card.retreatCost?.length) {
+                    <span class="energy-badge colorless">C</span>
+                  } @else {
+                    0
+                  }
+                </span>
+              </div>
+
+              <div class="meta-cell">
+                <span class="cell-label">Artist</span>
+                <span class="cell-value">{{ card.artist || 'Unknown' }}</span>
+              </div>
+
+              <div class="meta-cell">
+                <span class="cell-label">Rarity Code</span>
+                <span class="cell-value">{{ card.rarityCode || card.rarity }}</span>
+              </div>
+
+              <div class="meta-cell">
+                <span class="cell-label">Language</span>
+                <span class="cell-value">English</span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+}

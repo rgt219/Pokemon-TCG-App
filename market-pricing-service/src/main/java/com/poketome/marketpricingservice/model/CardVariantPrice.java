@@ -1,55 +1,24 @@
 package com.poketome.marketpricingservice.model;
 
+import lombok.Data;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
 
+@Data
 @DynamoDbBean
 public class CardVariantPrice {
-    private String condition; // e.g., "NM", "LP"
-    private String type; // e.g., "raw"
+    private String condition; // "NM", "LP", "MP", "HP", "DMG"
+    private String type; // "raw", "graded"
+    private String grade; // e.g., null, "10", "9.5"
+    private String company; // e.g., null, "PSA", "BGS", "CGC"
+    private Boolean isPerfect;
+    private Boolean isSigned;
+    private Boolean isError;
+
     private Double low;
+    private Double mid;
+    private Double high;
     private Double market;
+    private String currency; // "USD"
+
     private TrendWindow trends;
-
-    public CardVariantPrice() {
-    }
-
-    public String getCondition() {
-        return condition;
-    }
-
-    public void setCondition(String condition) {
-        this.condition = condition;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public Double getLow() {
-        return low;
-    }
-
-    public void setLow(Double low) {
-        this.low = low;
-    }
-
-    public Double getMarket() {
-        return market;
-    }
-
-    public void setMarket(Double market) {
-        this.market = market;
-    }
-
-    public TrendWindow getTrends() {
-        return trends;
-    }
-
-    public void setTrends(TrendWindow trends) {
-        this.trends = trends;
-    }
 }

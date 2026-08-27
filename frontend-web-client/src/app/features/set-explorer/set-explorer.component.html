@@ -1,0 +1,28 @@
+<div class="explorer-container">
+  <div class="explorer-header">
+    <h1>PokéTome Set Archive</h1>
+    <p>Select a card set to inspect live catalog inventories and market telemetry.</p>
+  </div>
+
+  <div class="sets-grid">
+    @for (set of sets(); track set.setId) {
+      <div class="set-card" (click)="onSelectSet(set.setId)">
+        <div class="set-logo-wrapper">
+          <img [src]="set.logoUrl" [alt]="set.name" class="set-logo" />
+        </div>
+        <div class="set-meta">
+          <h3>{{ set.name }}</h3>
+          <p class="set-id">Code: {{ set.setId | uppercase }}</p>
+          <div class="set-stats">
+            <span>Cards: {{ set.totalCards }}</span>
+            <span>Release: {{ set.releaseDate }}</span>
+          </div>
+        </div>
+      </div>
+    } @empty {
+      <div class="loading-state">
+        <p>Querying card-catalog-service nodes...</p>
+      </div>
+    }
+  </div>
+</div>
